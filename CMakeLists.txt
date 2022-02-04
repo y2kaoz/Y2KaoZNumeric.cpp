@@ -4,19 +4,14 @@ project(Y2KaoZNumeric VERSION 0.0.0.0 LANGUAGES CXX)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
-set(CMAKE_CXX_VISIBILITY_PRESET hidden)
-set(CMAKE_VISIBILITY_INLINES_HIDDEN YES)
-
-set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG}  -g3 -Og")
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Werror -g0 -Os")
 
 if(NOT APPLE)
     set(CMAKE_INSTALL_RPATH $ORIGIN)
 endif()
 
 add_library(${PROJECT_NAME} 
-./src/Y2KaoZ/Numeric/BigInt/BigInt.cpp
-./include/Y2KaoZ/Numeric/BigInt/BigInt.hpp
+    "include/Y2KaoZ/Numeric/BigInt/BigInt.hpp"
+    "src/Y2KaoZ/Numeric/BigInt/BigInt.cpp"
 )
 set_target_properties(${PROJECT_NAME} PROPERTIES
     VERSION ${PROJECT_VERSION}
@@ -25,11 +20,9 @@ set_target_properties(${PROJECT_NAME} PROPERTIES
     VISIBILITY_INLINES_HIDDEN YES
 )
 target_include_directories(${PROJECT_NAME} PUBLIC 
-"${CMAKE_CURRENT_SOURCE_DIR}/include"
-"${CMAKE_CURRENT_BINARY_DIR}/include"
+"${CMAKE_SOURCE_DIR}/include"
+"${CMAKE_BINARY_DIR}/include"
 )
-target_compile_options(${PROJECT_NAME} PRIVATE -Wall -Wextra -Wpedantic -Wconversion)
-
 
 include(GenerateExportHeader)
 generate_export_header(${PROJECT_NAME} EXPORT_FILE_NAME "include/Y2KaoZ/Numeric/Visibility.hpp")
