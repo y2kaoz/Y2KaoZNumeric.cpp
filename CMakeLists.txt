@@ -20,8 +20,8 @@ set_target_properties(${PROJECT_NAME} PROPERTIES
     VISIBILITY_INLINES_HIDDEN YES
 )
 target_include_directories(${PROJECT_NAME} PUBLIC 
-"${CMAKE_SOURCE_DIR}/include"
-"${CMAKE_BINARY_DIR}/include"
+    "${CMAKE_CURRENT_SOURCE_DIR}/include"
+    "${CMAKE_CURRENT_BINARY_DIR}/include"
 )
 
 include(GenerateExportHeader)
