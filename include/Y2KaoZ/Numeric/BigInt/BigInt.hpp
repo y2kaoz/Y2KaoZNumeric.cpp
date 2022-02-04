@@ -1,5 +1,6 @@
 #pragma once
 
+#include "Y2KaoZ/Numeric/Visibility.hpp"
 #include <boost/endian/buffers.hpp>
 #include <boost/multiprecision/cpp_int.hpp>
 #include <span>
@@ -7,20 +8,25 @@
 namespace Y2KaoZ::Numeric::BigInt {
 
 using BigInt = boost::multiprecision::cpp_int;
+using LittleUint8 = boost::endian::little_uint8_buf_t;
+using BigUint8 = boost::endian::big_uint8_buf_t;
 
 static_assert(sizeof(std::uint8_t) == sizeof(std::byte));
 
 static_assert(CHAR_BIT == 8); // NOLINT
 
-[[nodiscard]] auto fromBuffer(std::span<const std::uint8_t> buffer, bool bigEndian = false) -> BigInt;
-[[nodiscard]] auto fromBuffer(std::span<const std::byte> buffer, bool bigEndian = false) -> BigInt;
-[[nodiscard]] auto fromBuffer(std::span<const boost::endian::little_uint8_buf_t> buffer) -> BigInt;
-[[nodiscard]] auto fromBuffer(std::span<const boost::endian::big_uint8_buf_t> buffer) -> BigInt;
+[[nodiscard]] Y2KAOZNUMERIC_EXPORT auto fromBuffer(std::span<const std::uint8_t> buffer, bool bigEndian = false)
+  -> BigInt;
+[[nodiscard]] Y2KAOZNUMERIC_EXPORT auto fromBuffer(std::span<const std::byte> buffer, bool bigEndian = false) -> BigInt;
+[[nodiscard]] Y2KAOZNUMERIC_EXPORT auto fromBuffer(std::span<const LittleUint8> buffer) -> BigInt;
+[[nodiscard]] Y2KAOZNUMERIC_EXPORT auto fromBuffer(std::span<const BigUint8> buffer) -> BigInt;
 
-[[nodiscard]] auto uintBuffer(const BigInt& bigInt, bool bigEndian = false) -> std::vector<std::uint8_t>;
-[[nodiscard]] auto byteBuffer(const BigInt& bigInt, bool bigEndian = false) -> std::vector<std::byte>;
-[[nodiscard]] auto littleEndianBuffer(const BigInt& bigInt) -> std::vector<boost::endian::little_uint8_buf_t>;
-[[nodiscard]] auto bigEndianBuffer(const BigInt& bigInt) -> std::vector<boost::endian::big_uint8_buf_t>;
+[[nodiscard]] Y2KAOZNUMERIC_EXPORT auto uintBuffer(const BigInt& bigInt, bool bigEndian = false)
+  -> std::vector<std::uint8_t>;
+[[nodiscard]] Y2KAOZNUMERIC_EXPORT auto byteBuffer(const BigInt& bigInt, bool bigEndian = false)
+  -> std::vector<std::byte>;
+[[nodiscard]] Y2KAOZNUMERIC_EXPORT auto littleEndianBuffer(const BigInt& bigInt) -> std::vector<LittleUint8>;
+[[nodiscard]] Y2KAOZNUMERIC_EXPORT auto bigEndianBuffer(const BigInt& bigInt) -> std::vector<BigUint8>;
 
 template <std::size_t SIZE>
 inline auto uintBuffer(const BigInt& bigInt, bool bigEndian = false) -> std::array<std::uint8_t, SIZE> {
