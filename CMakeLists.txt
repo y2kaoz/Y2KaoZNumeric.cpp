@@ -13,6 +13,7 @@ add_library(${PROJECT_NAME}
     "include/Y2KaoZ/Numeric/BigInt/BigInt.hpp"
     "src/Y2KaoZ/Numeric/BigInt/BigInt.cpp"
 )
+target_compile_options(${PROJECT_NAME} PRIVATE -Wall -Wextra -Wpedantic -Wconversion)
 set_target_properties(${PROJECT_NAME} PROPERTIES
     VERSION ${PROJECT_VERSION}
     SOVERSION ${PROJECT_VERSION_MAJOR}
